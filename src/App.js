@@ -9,10 +9,10 @@ export default function App() {
         <>
            <NavContainer>CINEFLEX</NavContainer>
 
-            {/* <HomePage /> */}
-            {/* <SeatsPage /> */}
+            <HomePage />
             <SessionsPage />
-            {/* <SuccessPage /> */}
+            <SeatsPage />
+            <SuccessPage />
         </>
     )
 }
