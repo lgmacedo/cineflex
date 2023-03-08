@@ -26,4 +26,5 @@ const MovieContainer = styled.div`
     width: 130px;
     height: 190px;
   }
+  cursor: pointer;
 `;
