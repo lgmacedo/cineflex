@@ -10,14 +10,18 @@ export default function HomePage() {
   useEffect(()=>{
     const promise = axios.get('https://mock-api.driven.com.br/api/v8/cineflex/movies');
     promise.then(response => setMovies(response.data));
-  }, [])
+  }, []);
+
+  if(movies.length === 0){
+    return <p>Carregando...</p>; 
+  }
 
   return (
     <PageContainer>
       Selecione o filme
       <ListContainer>
         {movies.map((filme) => (
-          <Movie imagemPoster={filme.posterURL} />
+          <Movie key={filme.id} idFilme={filme.id} imagemPoster={filme.posterURL} />
         ))}
       </ListContainer>
     </PageContainer>

@@ -1,78 +1,117 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+
 import styled from "styled-components";
 import Captions from "../../components/Captions";
 import Seat from "../../components/Seat";
 
-export default function SeatsPage() {
-  const seats = [
-    {
-      id: 10001,
-      name: "1",
-      isAvailable: false,
-    },
-    {
-      id: 10002,
-      name: "2",
-      isAvailable: true,
-    },
-    {
-      id: 10003,
-      name: "3",
-      isAvailable: true,
-    },
-    {
-      id: 10004,
-      name: "4",
-      isAvailable: true,
-    },
-    {
-      id: 10005,
-      name: "5",
-      isAvailable: true,
-    },
-    {
-      id: 10006,
-      name: "6",
-      isAvailable: true,
-    },
-    {
-      id: 10007,
-      name: "7",
-      isAvailable: true,
-    },
-    {
-      id: 10008,
-      name: "8",
-      isAvailable: true,
-    },
-  ];
+export default function SeatsPage({ setSuccessPage }) {
+  const { idSessao } = useParams();
+
+  const [movieInfo, setMovieInfo] = useState({});
+  const [seats, setSeats] = useState([]);
+
+  const [ids, setIds] = useState([]);
+  const [name, setName] = useState("");
+  const [cpf, setCpf] = useState("");
+
+  const [assentos, setAssentos] = useState([]);
+
+  function arrayAssentos(op, id, assento) {
+    if (op === 1) {
+      setIds([...ids, id]);
+      setAssentos([...assentos, assento]);
+    } else {
+      const index = ids.indexOf(id);
+      const newIds = ids.slice(0, index).concat(ids.slice(index + 1));
+      setIds([...newIds]);
+
+      const index2 = assentos.indexOf(assento);
+      const newAssentos = assentos
+        .slice(0, index2)
+        .concat(assentos.slice(index2 + 1));
+      setAssentos([...newAssentos]);
+    }
+  }
+
+  function fazReserva() {
+    if (ids.length === 0 || name === "" || cpf === "") {
+      alert("Escolha pelo menos um assento e preencha os dados do comprador");
+      return;
+    }
+    axios.post(
+      "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
+      { ids: ids, name: name, cpf: cpf }
+    );
+    setSuccessPage(
+      {
+        title: movieInfo.movie.title,
+        date: movieInfo.day.date,
+        time: movieInfo.name,
+      },
+      assentos,
+      { name: name, cpf: cpf }
+    );
+  }
+
+  useEffect(() => {
+    const promise = axios.get(
+      `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${idSessao}/seats`
+    );
+    promise.then((response) => {
+      setMovieInfo(response.data);
+      setSeats(response.data.seats);
+    });
+  }, []);
+
+  if (seats.length === 0) {
+    return <p>Carregando...</p>;
+  }
+
   return (
     <PageContainer>
       Selecione o(s) assento(s)
       <SeatsContainer>
         {seats.map((seat) => (
-          <Seat name={seat.name} isAvailable={seat.isAvailable} />
+          <Seat
+            key={seat.id}
+            id={seat.id}
+            name={seat.name}
+            isAvailable={seat.isAvailable}
+            arrayAssentos={arrayAssentos}
+          />
         ))}
       </SeatsContainer>
       <Captions />
       <FormContainer>
         Nome do Comprador:
-        <input placeholder="Digite seu nome..." />
+        <input
+          data-test="client-name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Digite seu nome..."
+        />
         CPF do Comprador:
-        <input placeholder="Digite seu CPF..." />
-        <button>Reservar Assento(s)</button>
+        <input
+          data-test="client-cpf"
+          value={cpf}
+          onChange={(e) => setCpf(e.target.value)}
+          placeholder="Digite seu CPF..."
+        />
+        <button data-test="book-seat-btn" onClick={fazReserva}>
+          <Link to="/sucesso">Reservar Assento(s)</Link>
+        </button>
       </FormContainer>
-      <FooterContainer>
+      <FooterContainer data-test="footer">
         <div>
-          <img
-            src={
-              "https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"
-            }
-            alt="poster"
-          />
+          <img src={movieInfo.movie.posterURL} alt="poster" />
         </div>
         <div>
-          <p>Tudo em todo lugar ao mesmo tempo</p>
-          <p>Sexta - 14h00</p>
+          <p>{movieInfo.movie.title}</p>
+          <p>
+            {movieInfo.day.weekday} - {movieInfo.name}
+          </p>
         </div>
       </FooterContainer>
     </PageContainer>
@@ -110,6 +149,10 @@ const FormContainer = styled.div`
   button {
     align-self: center;
     cursor: pointer;
+    a {
+      color: white;
+      text-decoration: none;
+    }
   }
   input {
     width: calc(100vw - 60px);

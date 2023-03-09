@@ -4,17 +4,28 @@ import SeatsPage from "./pages/SeatsPage/SeatsPage"
 import SessionsPage from "./pages/SessionsPage/SessionsPage"
 import SuccessPage from "./pages/SuccessPage/SuccessPage"
 
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+import { useState } from "react"
 
 export default function App() {
+    const [reservation, setReservation] = useState({});
+
+    function setSuccessPage(movie, tickets, client){
+        setReservation({movie:movie, tickets:tickets, client:client});
+    }
+
+    function resetSuccessPage(){
+        setReservation({});
+    }
+
     return (
         <BrowserRouter>
-           <NavContainer>CINEFLEX</NavContainer>
+           <NavContainer><Link to='/'>CINEFLEX</Link></NavContainer>
             <Routes>
                 <Route path='/' element={<HomePage />} />
-                <Route path='/sessoes' element={<SessionsPage />} />
-                <Route path='/assentos' element={<SeatsPage />} />
-                <Route path='/sucesso' element={<SuccessPage />} />
+                <Route path='/sessoes/:idFilme' element={<SessionsPage />} />
+                <Route path='/assentos/:idSessao' element={<SeatsPage setSuccessPage={setSuccessPage}/> } />
+                <Route path='/sucesso' element={<SuccessPage reservation={reservation} resetSuccessPage={resetSuccessPage}/>} />
             </Routes>
         </BrowserRouter>
     )
@@ -36,4 +47,5 @@ const NavContainer = styled.div`
         text-decoration: none;
         color: #E8833A;
     }
+    cursor: pointer;
 `
