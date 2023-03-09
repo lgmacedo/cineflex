@@ -100,7 +100,7 @@ export default function SeatsPage({ setSuccessPage }) {
           placeholder="Digite seu CPF..."
         />
         <button data-test="book-seat-btn" onClick={fazReserva}>
-          <Link to="/sucesso">Reservar Assento(s)</Link>
+          <Link to="/sucesso">Reservar assento(s)</Link>
         </button>
       </FormContainer>
       <FooterContainer data-test="footer">
@@ -122,10 +122,10 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Roboto";
-  font-size: 24px;
+  font-family: 'Tilt Warp', cursive;
+  font-size: 20px;
   text-align: center;
-  color: #293845;
+  color: #002966;
   margin-top: 30px;
   padding-bottom: 120px;
   padding-top: 70px;
@@ -149,13 +149,16 @@ const FormContainer = styled.div`
   button {
     align-self: center;
     cursor: pointer;
+    background-color: #002966;
     a {
-      color: white;
+      color: #E8833A;
       text-decoration: none;
+      font-family: 'Tilt Warp', cursive;
     }
   }
   input {
     width: calc(100vw - 60px);
+    font-family: 'Tilt Warp', cursive;
   }
 `;
 
@@ -181,7 +184,7 @@ const FooterContainer = styled.div`
     img {
       width: 50px;
       height: 70px;
-      padding: 8px;
+      border-radius: 3px;
     }
   }
 

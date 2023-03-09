@@ -46,21 +46,23 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Roboto";
-  font-size: 24px;
+  font-family: 'Tilt Warp', cursive;
+  font-size: 20px;
   color: #293845;
   margin: 30px 20px;
   padding-bottom: 120px;
   padding-top: 70px;
   a {
     text-decoration: none;
-    color: white;
+    color: #E8833A;
   }
   button {
     margin-top: 50px;
+    font-family: 'Tilt Warp', cursive;
+    background-color: #002966;;
   }
   h1 {
-    font-family: "Roboto";
+    font-family: 'Tilt Warp', cursive;
     font-style: normal;
     font-weight: 700;
     font-size: 24px;
@@ -68,7 +70,7 @@ const PageContainer = styled.div`
     display: flex;
     align-items: center;
     text-align: center;
-    color: #247a6b;
+    color: #008000;
   }
 `;
 const TextContainer = styled.div`
@@ -80,5 +82,6 @@ const TextContainer = styled.div`
   strong {
     font-weight: bold;
     margin-bottom: 10px;
+    color: #002966;
   }
 `;

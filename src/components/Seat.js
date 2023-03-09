@@ -43,8 +43,9 @@ const SeatContainer = styled.div`
   height: 25px;
   width: 25px;
   border-radius: 25px;
-  font-family: "Roboto";
+  font-family: 'Tilt Warp', cursive;
   font-size: 11px;
+  color: #002966;
   display: flex;
   align-items: center;
   justify-content: center;

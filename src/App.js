@@ -37,12 +37,12 @@ const NavContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #C3CFD9;
-    color: #E8833A;
-    font-family: 'Roboto', sans-serif;
-    font-size: 34px;
+    background-color: #002966;
+    font-family: 'Tilt Warp', cursive;
+    font-size: 50px;
     position: fixed;
     top: 0;
+    box-shadow: 0px 2px 4px 2px #0000001a;
     a {
         text-decoration: none;
         color: #E8833A;

@@ -21,8 +21,9 @@ const MovieContainer = styled.div`
   justify-content: center;
   margin: 10px;
   img {
-    width: 130px;
-    height: 190px;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
   }
   cursor: pointer;
 `;

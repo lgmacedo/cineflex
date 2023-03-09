@@ -32,10 +32,10 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Roboto";
-  font-size: 24px;
+  font-family: 'Tilt Warp', cursive;
+  font-size: 20px;
   text-align: center;
-  color: #293845;
+  color: #002966;
   margin-top: 30px;
   padding-top: 70px;
 `;

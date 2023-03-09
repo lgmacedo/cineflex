@@ -22,9 +22,9 @@ const SessionContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  font-family: "Roboto";
-  font-size: 20px;
-  color: #293845;
+  font-family: "Tilt Warp", cursive;
+  font-size: 18px;
+  color: #002966;
   padding: 0 20px;
 `;
 
@@ -33,11 +33,14 @@ const ButtonsContainer = styled.div`
   flex-direction: row;
   margin: 20px 0;
   button {
+    background-color: #002966;
     margin-right: 20px;
     cursor: pointer;
   }
   a {
+    font-family: "Tilt Warp", cursive;
+    font-size: 18px;
     text-decoration: none;
-    color: white;
+    color: #E8833A;
   }
 `;

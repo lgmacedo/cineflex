@@ -52,10 +52,10 @@ export default function SessionsPage() {
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: "Roboto";
-  font-size: 24px;
+  font-family: 'Tilt Warp', cursive;
+  font-size: 20px;
   text-align: center;
-  color: #293845;
+  color: #002966;
   margin-top: 30px;
   padding-bottom: 120px;
   padding-top: 70px;
@@ -86,7 +86,7 @@ const FooterContainer = styled.div`
     img {
       width: 50px;
       height: 70px;
-      padding: 8px;
+      border-radius: 3px;
     }
   }
 
