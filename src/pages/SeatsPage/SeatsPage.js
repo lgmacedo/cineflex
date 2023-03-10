@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import styled from "styled-components";
 import Captions from "../../components/Captions";
 import Seat from "../../components/Seat";
 
 export default function SeatsPage({ setSuccessPage }) {
+  const navigate = useNavigate();
+
   const { idSessao } = useParams();
 
   const [movieInfo, setMovieInfo] = useState({});
@@ -35,15 +37,21 @@ export default function SeatsPage({ setSuccessPage }) {
     }
   }
 
-  function fazReserva() {
-    if (ids.length === 0 || name === "" || cpf === "") {
-      alert("Escolha pelo menos um assento e preencha os dados do comprador");
+  function fazReserva(e) {
+    e.preventDefault();
+    if (ids.length === 0) {
+      alert("Escolha pelo menos um assento");
       return;
     }
-    axios.post(
+    const promise = axios.post(
       "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
       { ids: ids, name: name, cpf: cpf }
     );
+    promise.then(() => finalizaReserva());
+    promise.catch((err) => alert(err.response.data));
+  }
+
+  function finalizaReserva() {
     setSuccessPage(
       {
         title: movieInfo.movie.title,
@@ -53,6 +61,7 @@ export default function SeatsPage({ setSuccessPage }) {
       assentos,
       { name: name, cpf: cpf }
     );
+    navigate("/sucesso");
   }
 
   useEffect(() => {
@@ -85,23 +94,29 @@ export default function SeatsPage({ setSuccessPage }) {
       </SeatsContainer>
       <Captions />
       <FormContainer>
-        Nome do Comprador:
-        <input
-          data-test="client-name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Digite seu nome..."
-        />
-        CPF do Comprador:
-        <input
-          data-test="client-cpf"
-          value={cpf}
-          onChange={(e) => setCpf(e.target.value)}
-          placeholder="Digite seu CPF..."
-        />
-        <button data-test="book-seat-btn" onClick={fazReserva}>
-          <Link to="/sucesso">Reservar assento(s)</Link>
-        </button>
+        <form onSubmit={fazReserva}>
+          <label for="nomeCliente">Nome do comprador:</label>
+          <input
+            required
+            data-test="client-name"
+            id="nomeCliente"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Digite seu nome..."
+          />
+          <label for="cpfCliente">CPF do comprador:</label>
+          <input
+            required
+            data-test="client-cpf"
+            id="cpfCliente"
+            value={cpf}
+            onChange={(e) => setCpf(e.target.value)}
+            placeholder="Digite seu CPF..."
+          />
+          <button type="submit" data-test="book-seat-btn">
+            Reservar assento(s)
+          </button>
+        </form>
       </FormContainer>
       <FooterContainer data-test="footer">
         <div>
@@ -122,7 +137,7 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Tilt Warp', cursive;
+  font-family: "Tilt Warp", cursive;
   font-size: 20px;
   text-align: center;
   color: #002966;
@@ -140,25 +155,24 @@ const SeatsContainer = styled.div`
   margin-top: 20px;
 `;
 const FormContainer = styled.div`
-  width: calc(100vw - 40px);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 20px 0;
-  font-size: 18px;
-  button {
-    align-self: center;
-    cursor: pointer;
-    background-color: #002966;
-    a {
-      color: #E8833A;
-      text-decoration: none;
-      font-family: 'Tilt Warp', cursive;
+  form {
+    width: calc(100vw - 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px 0;
+    font-size: 18px;
+    button {
+      align-self: center;
+      cursor: pointer;
+      background-color: #002966;
+      font-family: "Tilt Warp", cursive;
+      color: #e8833a;
     }
-  }
-  input {
-    width: calc(100vw - 60px);
-    font-family: 'Tilt Warp', cursive;
+    input {
+      width: calc(100vw - 60px);
+      font-family: "Tilt Warp", cursive;
+    }
   }
 `;
 
