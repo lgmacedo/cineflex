@@ -5,7 +5,9 @@ import axios from "axios";
 import styled from "styled-components";
 import Session from "../../components/Session";
 
-export default function SessionsPage() {
+export default function SessionsPage({setGoBack}) {
+  setGoBack(true);
+
   const { idFilme } = useParams();
   const [movieInfo, setMovieInfo] = useState({});
   const [sessions, setSessions] = useState([]);

@@ -4,7 +4,8 @@ import styled from "styled-components";
 
 import Movie from "../../components/Movie";
 
-export default function HomePage() {
+export default function HomePage({setGoBack}) {
+  setGoBack(false);
   const [movies, setMovies] = useState([]);
 
   useEffect(()=>{

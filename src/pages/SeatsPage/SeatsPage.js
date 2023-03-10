@@ -6,7 +6,8 @@ import styled from "styled-components";
 import Captions from "../../components/Captions";
 import Seat from "../../components/Seat";
 
-export default function SeatsPage({ setSuccessPage }) {
+export default function SeatsPage({ setGoBack, setSuccessPage }) {
+  setGoBack(true);
   const navigate = useNavigate();
 
   const { idSessao } = useParams();

@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default function SuccessPage({ reservation, resetSuccessPage }) {
+export default function SuccessPage({ setGoBack, reservation, resetSuccessPage }) {
+  setGoBack(false);
   return (
     <PageContainer>
       <h1>
