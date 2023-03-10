@@ -1,22 +1,22 @@
 import styled from "styled-components";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 import HomePage from "./pages/HomePage/HomePage";
 import SeatsPage from "./pages/SeatsPage/SeatsPage";
 import SessionsPage from "./pages/SessionsPage/SessionsPage";
 import SuccessPage from "./pages/SuccessPage/SuccessPage";
 
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-
 import { IoArrowBack } from "react-icons/io5";
 
 export default function App() {
   const [reservation, setReservation] = useState({});
-  const navigate = useNavigate();
 
   const [goBack, setGoBack] = useState(false);
+  const navigate = useNavigate();
 
   function setSuccessPage(movie, tickets, client) {
-    setReservation({ movie: movie, tickets: tickets, client: client });
+    setReservation({ movie, tickets, client });
   }
 
   function resetSuccessPage() {

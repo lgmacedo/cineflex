@@ -2,6 +2,9 @@ import { useState } from "react";
 import styled from "styled-components";
 
 export default function Seat({ id, name, isAvailable, arrayAssentos }) {
+  const adicionarAssento = 1;
+  const removerAssento = 2;
+
   const [seat, setSeat] = useState(isAvailable ? "available" : "taken");
   function seatClick(id, assento) {
     if (seat === "taken") {
@@ -9,11 +12,11 @@ export default function Seat({ id, name, isAvailable, arrayAssentos }) {
       return;
     } else if (seat === "selected") {
       setSeat("available");
-      arrayAssentos(2, id, assento);
+      arrayAssentos(removerAssento, id, assento);
       return;
     }
     setSeat("selected");
-    arrayAssentos(1, id, assento);
+    arrayAssentos(adicionarAssento, id, assento);
   }
 
   return (

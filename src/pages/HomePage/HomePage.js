@@ -14,7 +14,7 @@ export default function HomePage({setGoBack}) {
   }, []);
 
   if(movies.length === 0){
-    return <p>Carregando...</p>; 
+    return <p>Carregando...</p>;
   }
 
   return (

@@ -46,7 +46,7 @@ export default function SeatsPage({ setGoBack, setSuccessPage }) {
     }
     const promise = axios.post(
       "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
-      { ids: ids, name: name, cpf: cpf }
+      { ids, name, cpf }
     );
     promise.then(() => finalizaReserva());
     promise.catch((err) => alert(err.response.data));
@@ -60,7 +60,7 @@ export default function SeatsPage({ setGoBack, setSuccessPage }) {
         time: movieInfo.name,
       },
       assentos,
-      { name: name, cpf: cpf }
+      { name, cpf }
     );
     navigate("/sucesso");
   }
